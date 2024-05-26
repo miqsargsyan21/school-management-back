@@ -1,4 +1,4 @@
-import PrismaSingleton from "../../prisma/client.js";
+import PrismaSingleton from "../../../prisma/client.js";
 
 export default class SubjectService {
   constructor() {

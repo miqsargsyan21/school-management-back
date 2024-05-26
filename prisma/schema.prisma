@@ -11,9 +11,11 @@ model User {
   id        Int @id @default(autoincrement())
   email     String  @unique
   password  String
-  role      String  @default(USER)
+  role      UserRole
   firstName String
   lastName  String
+
+  @@map("users")
 }
 
 model Teacher {
@@ -23,6 +25,8 @@ model Teacher {
   subjects  Subject[]
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
+
+  @@map("teachers")
 }
 
 model Subject {
@@ -33,6 +37,8 @@ model Subject {
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
   pupils    SubjectsOnPupils[]
+
+  @@map("subjects")
 }
 
 model Pupil {
@@ -42,6 +48,8 @@ model Pupil {
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
   subjects  SubjectsOnPupils[]
+
+  @@map("pupils")
 }
 
 model SubjectsOnPupils {
@@ -49,32 +57,27 @@ model SubjectsOnPupils {
   subjectId Int
   pupil     Pupil @relation(fields: [pupilId], references: [id])
   pupilId   Int
-  grade     Int
-  class     Int
+  grade     Grades
+  class     Classes
   @@id([subjectId, pupilId])
+
+  @@map("subjects_pupils")
 }
 
-enum Role {
+enum UserRole {
   USER
   ADMIN
 }
 
-enum Grade {
-  1
-  2
-  3
-  4
-  5
+
+enum Classes {
+  FIRST   @map("1")
+  SECOND  @map("2")
+  THIRD   @map("3")
 }
 
-enum Class {
-  1
-  2
-  3
-  4
-  5
-  6
-  7
-  8
-  9
+enum Grades {
+  ONE    @map("1")
+  TWO    @map("2")
+  THREE  @map("3")
 }
