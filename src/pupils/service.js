@@ -5,13 +5,38 @@ export default class PupilService {
     this.pupil = PrismaSingleton.pupil;
   }
 
-  async create(data) {}
+  async create(data) {
+    return await this.pupil.create({
+      data,
+    });
+  }
 
-  async update(id, data) {}
+  async update(id, data) {
+    return await this.pupil.update({
+      where: {
+        id,
+      },
+      data,
+    });
+  }
 
-  async find(id) {}
+  async find(id) {
+    return await this.pupil.findUnique({
+      where: {
+        id: id,
+      },
+    });
+  }
 
-  async delete(id) {}
+  async delete(id) {
+    return await this.pupil.delete({
+      where: {
+        id: id,
+      },
+    });
+  }
 
-  async get() {}
+  async get() {
+    return await this.pupil.findMany();
+  }
 }

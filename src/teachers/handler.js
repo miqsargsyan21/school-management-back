@@ -7,34 +7,54 @@ export default class TeacherHandler {
   }
 
   async create(data) {
-    await teacherSchema.validate(data, { abortEarly: false });
-    const response = await this.service.create(data);
+    try {
+      await teacherSchema.validate(data, { abortEarly: false });
+      const response = await this.service.create(data);
 
-    return response;
+      return response;
+    } catch (e) {
+      return { message: e.message };
+    }
   }
 
   async update(id, data) {
-    await teacherSchema.validate(data, { abortEarly: false });
-    const response = await this.service.update(id, data);
+    try {
+      await teacherSchema.validate(data, { abortEarly: false });
+      const response = await this.service.update(id, data);
 
-    return response;
+      return response;
+    } catch (e) {
+      return { message: e.message };
+    }
   }
 
   async find(id) {
-    const response = await this.service.find(id);
+    try {
+      const response = await this.service.find(id);
 
-    return response;
+      return response;
+    } catch (e) {
+      return { message: e.message };
+    }
   }
 
   async delete(id) {
-    const response = await this.service.delete(id);
+    try {
+      const response = await this.service.delete(id);
 
-    return response;
+      return response;
+    } catch (e) {
+      return { message: e.message };
+    }
   }
 
   async get() {
-    const response = await this.service.get();
+    try {
+      const response = await this.service.get();
 
-    return response;
+      return response;
+    } catch (e) {
+      return { message: e.message };
+    }
   }
 }

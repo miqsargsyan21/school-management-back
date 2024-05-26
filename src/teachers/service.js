@@ -6,97 +6,37 @@ export default class TeacherService {
   }
 
   async create(data) {
-    try {
-      await this.teacher.create({
-        data,
-      });
-
-      return {
-        success: true,
-        response: "Teacher data added successfully.",
-      };
-    } catch (e) {
-      return {
-        success: false,
-        message: e.message,
-      };
-    }
+    return await this.teacher.create({
+      data,
+    });
   }
 
   async update(id, data) {
-    try {
-      await this.teacher.update({
-        where: {
-          id: id,
-        },
-        data: data,
-      });
-
-      return {
-        success: true,
-        response: "Teacher data updated successfully.",
-      };
-    } catch (e) {
-      return {
-        success: false,
-        message: e.message,
-      };
-    }
+    return await this.teacher.update({
+      where: {
+        id,
+      },
+      data,
+    });
   }
 
   async find(id) {
-    try {
-      const teacher = await this.teacher.findUnique({
-        where: {
-          id: id,
-        },
-      });
-
-      return {
-        success: true,
-        teacher,
-      };
-    } catch (e) {
-      return {
-        success: false,
-        message: e.message,
-      };
-    }
+    return await this.teacher.findUnique({
+      where: {
+        id: id,
+      },
+    });
   }
 
   async delete(id) {
-    try {
-      await this.teacher.delete({
-        where: {
-          id: id,
-        },
-      });
-
-      return {
-        success: true,
-        response: "Teacher data deleted successfully.",
-      };
-    } catch (e) {
-      return {
-        success: false,
-        message: e.message,
-      };
-    }
+    return await this.teacher.delete({
+      where: {
+        id: id,
+      },
+    });
   }
 
   async get() {
-    try {
-      const teachers = await this.teacher.findMany();
-
-      return {
-        success: true,
-        teachers,
-      };
-    } catch (e) {
-      return {
-        success: false,
-        message: e.message,
-      };
-    }
+    return await this.teacher.findMany();
   }
 }

@@ -5,13 +5,53 @@ export default class SubjectHandler {
     this.service = new SubjectService();
   }
 
-  async create(data) {}
+  async create(data) {
+    try {
+      const response = await this.service.create(data);
 
-  async update(id, data) {}
+      return response;
+    } catch (e) {
+      return { message: e.message };
+    }
+  }
 
-  async find(id) {}
+  async update(id, data) {
+    try {
+      const response = await this.service.update(id, data);
 
-  async delete(id) {}
+      return response;
+    } catch (e) {
+      return { message: e.message };
+    }
+  }
 
-  async get() {}
+  async find(id) {
+    try {
+      const response = await this.service.find(id);
+
+      return response;
+    } catch (e) {
+      return { message: e.message };
+    }
+  }
+
+  async delete(id) {
+    try {
+      const response = await this.service.delete(id);
+
+      return response;
+    } catch (e) {
+      return { message: e.message };
+    }
+  }
+
+  async get() {
+    try {
+      const response = await this.service.get();
+
+      return response;
+    } catch (e) {
+      return { message: e.message };
+    }
+  }
 }
