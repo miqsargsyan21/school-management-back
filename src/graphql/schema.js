@@ -10,6 +10,10 @@ const graphqlSchema = buildSchema(`
     
     subject(id: ID!): Subject
     subjects: [Subject]
+    
+    signIn(input: SignInInput): SignIn
+    
+    user(token: String!): User
   }
 
   type Mutation {
@@ -24,6 +28,8 @@ const graphqlSchema = buildSchema(`
     createSubject(input: SubjectInput!): Subject
     updateSubject(id: ID!, input: SubjectInput!): Subject
     deleteSubject(id: ID!): Subject
+    
+    createUser(input: UserInput!): User
   }
 
   type Teacher {
@@ -55,6 +61,28 @@ const graphqlSchema = buildSchema(`
 
   input SubjectInput {
     title: String!
+  }
+  
+  type SignIn {
+    token: String!
+  }
+
+  input SignInInput {
+    email: String!
+    password: String!
+  }
+  
+  type User {
+    email: String!
+    firstName: String!
+    lastName: String!
+  }
+
+  input UserInput {
+    email: String!
+    password: String!
+    firstName: String!
+    lastName: String!
   }
 `);
 

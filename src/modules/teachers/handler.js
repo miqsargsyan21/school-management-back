@@ -9,9 +9,7 @@ export default class TeacherHandler {
   async create(data) {
     try {
       await teacherSchema.validate(data, { abortEarly: false });
-      const response = await this.service.create(data);
-
-      return response;
+      return await this.service.create(data);
     } catch (e) {
       return { message: e.message };
     }

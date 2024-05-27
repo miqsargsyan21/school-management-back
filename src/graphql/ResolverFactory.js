@@ -29,6 +29,15 @@ const ResolverFactory = {
   deletePupil: async ({ id }, context) => {
     return await context.pupilHandler.delete(id);
   },
+  signIn: async ({ input }, context) => {
+    return await context.authHandler.signIn(input);
+  },
+  createUser: async ({ input }, context) => {
+    return await context.userHandler.createUser(input);
+  },
+  user: async ({ token }, context) => {
+    return await context.userHandler.find(token);
+  },
 };
 
 export default ResolverFactory;
