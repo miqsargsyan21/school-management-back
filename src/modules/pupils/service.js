@@ -2,12 +2,34 @@ import PrismaSingleton from "../../../prisma/client.js";
 
 export default class PupilService {
   constructor() {
+    this.subjectsOnPupils = PrismaSingleton.subjectsOnPupils;
     this.pupil = PrismaSingleton.pupil;
   }
 
   async create(data) {
+    const { subjectIds, ...pupilInfo } = data;
+    let requestData;
+
+    if (subjectIds) {
+      requestData = {
+        subjects: {
+          create: subjectIds.map((id) => ({
+            subject: {
+              connect: {id: Number(id)}
+            }
+          }))
+        },
+        ...pupilInfo,
+      }
+    } else {
+      requestData = {
+        ...pupilInfo,
+      }
+    }
+    console.log(requestData)
+
     return await this.pupil.create({
-      data,
+      data: requestData,
     });
   }
 
@@ -29,6 +51,12 @@ export default class PupilService {
   }
 
   async delete(id) {
+    await this.subjectsOnPupils.deleteMany({
+      where: {
+        pupilId: id
+      }
+    })
+
     return await this.pupil.delete({
       where: {
         id: id,
@@ -37,6 +65,26 @@ export default class PupilService {
   }
 
   async get() {
-    return await this.pupil.findMany();
+    const response = await this.pupil.findMany({
+      include: {
+        subjects: {
+          include: {
+            subject: true,
+          },
+        },
+      },
+    })
+
+    console.log(response[0].subjects)
+
+    return await this.pupil.findMany({
+      include: {
+        subjects: {
+          include: {
+            subject: true,
+          },
+        },
+      },
+    });
   }
 }

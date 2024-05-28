@@ -6,8 +6,25 @@ export default class TeacherService {
   }
 
   async create(data) {
+    const { subjectIds, ...teacherInfo } = data;
+
+    let requestData;
+
+    if (subjectIds) {
+      requestData = {
+          subjects: {
+            connect: subjectIds.map(id => ({id}))
+          },
+          ...teacherInfo,
+        }
+    } else {
+      requestData = {
+        ...teacherInfo,
+      }
+    }
+
     return await this.teacher.create({
-      data,
+      data: requestData,
     });
   }
 
@@ -37,6 +54,10 @@ export default class TeacherService {
   }
 
   async get() {
-    return await this.teacher.findMany();
+    return await this.teacher.findMany({
+      include: {
+        subjects: true,
+      },
+    });
   }
 }

@@ -36,27 +36,32 @@ const graphqlSchema = buildSchema(`
     id: ID!
     firstName: String!
     lastName: String!
+    subjects: [Subject]
   }
 
   input TeacherInput {
     firstName: String!
     lastName: String!
+    subjectIds: [Int]
   }
   
   type Pupil {
     id: ID!
     firstName: String!
     lastName: String!
+    subjects: [PupilsOnSubject]
   }
 
   input PupilInput {
     firstName: String!
     lastName: String!
+    subjectIds: [Int]
   }
   
   type Subject {
     id: ID!
     title: String!
+    teacher: Teacher
   }
 
   input SubjectInput {
@@ -83,6 +88,12 @@ const graphqlSchema = buildSchema(`
     password: String!
     firstName: String!
     lastName: String!
+  }
+  
+  type PupilsOnSubject {
+    subject: Subject!
+    grade: String
+    class: String
   }
 `);
 
