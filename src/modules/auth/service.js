@@ -1,7 +1,8 @@
 import PrismaSingleton from "../../../prisma/client.js";
+import { configDotenv } from "dotenv";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import { configDotenv } from "dotenv";
+
 const { JWT_SECRET_KEY: jwtSecretKey } = configDotenv().parsed;
 
 export default class AuthService {
@@ -11,7 +12,6 @@ export default class AuthService {
 
   async signIn(data) {
     const { email, password } = data;
-    console.log("envs: ", envs);
     const foundUser = await this.user.findUnique({
       where: {
         email,

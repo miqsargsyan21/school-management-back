@@ -31,9 +31,9 @@ model Teacher {
 
 model Subject {
   id        Int @id @default(autoincrement())
-  title     String
-  teacher   Teacher @relation(fields: [teacherId], references: [id])
-  teacherId Int
+  title     String @unique
+  teacher   Teacher? @relation(fields: [teacherId], references: [id])
+  teacherId Int?
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
   pupils    SubjectsOnPupils[]
@@ -57,8 +57,8 @@ model SubjectsOnPupils {
   subjectId Int
   pupil     Pupil @relation(fields: [pupilId], references: [id])
   pupilId   Int
-  grade     Grades
-  class     Classes
+  grade     Grades ?
+  class     Classes ?
   @@id([subjectId, pupilId])
 
   @@map("subjects_pupils")
@@ -68,7 +68,6 @@ enum UserRole {
   USER
   ADMIN
 }
-
 
 enum Classes {
   FIRST   @map("1")

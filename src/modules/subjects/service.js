@@ -37,6 +37,10 @@ export default class SubjectService {
   }
 
   async get() {
-    return await this.subject.findMany();
+    return await this.subject.findMany({
+      include: {
+        teacher: true,
+      },
+    });
   }
 }

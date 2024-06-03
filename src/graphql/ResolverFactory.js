@@ -12,7 +12,7 @@ const ResolverFactory = {
     return await context.teacherHandler.update(id, input);
   },
   deleteTeacher: async ({ id }, context) => {
-    return await context.teacherHandler.delete(id);
+    return await context.teacherHandler.delete(Number(id));
   },
   pupil: async ({ id }, context) => {
     return await context.pupilHandler.find(id);
@@ -27,7 +27,22 @@ const ResolverFactory = {
     return await context.pupilHandler.update(id, input);
   },
   deletePupil: async ({ id }, context) => {
-    return await context.pupilHandler.delete(id);
+    return await context.pupilHandler.delete(Number(id));
+  },
+  subject: async ({ id }, context) => {
+    return await context.subjectHandler.find(id);
+  },
+  subjects: async (args, context) => {
+    return await context.subjectHandler.get();
+  },
+  createSubject: async ({ input }, context) => {
+    return await context.subjectHandler.create(input);
+  },
+  updateSubject: async ({ id, input }, context) => {
+    return await context.subjectHandler.update(id, input);
+  },
+  deleteSubject: async ({ id }, context) => {
+    return await context.subjectHandler.delete(Number(id));
   },
   signIn: async ({ input }, context) => {
     return await context.authHandler.signIn(input);

@@ -1,9 +1,9 @@
 import { userSchema } from "./validation.js";
-import AuthService from "./service.js";
+import UserService from "./service.js";
 
 export default class UserHandler {
   constructor() {
-    this.service = new AuthService();
+    this.service = new UserService();
   }
 
   async createUser(data) {
@@ -14,6 +14,7 @@ export default class UserHandler {
   }
 
   async find(token) {
+    console.log('xlo')
     const response = await this.service.find(token);
 
     return response;
